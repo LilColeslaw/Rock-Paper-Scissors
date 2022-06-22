@@ -7,6 +7,9 @@ function computerPlay() {
 }
 
 function playRound(computerSelection, playerSelection) {
+    //take the playerSelection argument and make sure it has the right capitalization
+    let pSLength = playerSelection.length; //make a variable for playerSelection's length
+    playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1, pSLength).toLowerCase();
     //check if they equal each-other return a tie if they do
     if (computerSelection === playerSelection) {
         return `It's a tie! ${computerSelection} ties ${playerSelection}!`;
@@ -16,14 +19,18 @@ function playRound(computerSelection, playerSelection) {
         if (playerSelection === "Scissors") {
             return `You lose! ${computerSelection} beats ${playerSelection}`;
         } 
-        return `You win! ${playerSelection} beats ${computerSelection}`;
+        if (playerSelection === "Paper") {
+            return `You win! ${playerSelection} beats ${computerSelection}`;
+        }
     }
     //check the cases for the computer having Paper
     if (computerSelection === "Paper") {
         if (playerSelection === "Rock") {
             return `You lose! ${computerSelection} beats ${playerSelection}`;
         }
-        return `You win! ${playerSelection} beats ${computerSelection}`;
+        if (playerSelection === "Scissors") {
+            return `You win! ${playerSelection} beats ${computerSelection}`;
+        }
     }
     //check the cases for the computer having Scissors
     if (playerSelection === "Paper") {
@@ -32,4 +39,6 @@ function playRound(computerSelection, playerSelection) {
     if (playerSelection === "Rock") {
         return `You win! ${playerSelection} beats ${computerSelection}`;
     }
+    //if none of the other cases are true, tell the user that they didn't enter a valid move
+    return "You have not entered a valid move";
 }
