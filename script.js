@@ -44,26 +44,11 @@ function playRound(computerSelection, playerSelection) { //make it so that 0 = l
 }
 
 function game() {
-    //simulates a 5-round game using a for-loop
-
-    //create a variable for the result of each round
-    let roundOne = "Round 1: ";
-    let roundTwo = "Round 2: ";
-    let roundThree = "Round 3: ";
-    let roundFour = "Round 4: ";
-    let roundFive = "Round 5: ";
-
-
     //create variables for total wins and losses and ties
     let wins = 0;
     let losses = 0;
-    let ties = 0;
 
-    //create a for loop
-    //initialize with the variable games which will be set to 0
-    //keep it going until it is greater than or equal to 5 (the rounds)
-    //each time add 1 to it
-    for (let rounds = 0; rounds < 5; rounds++) {
+    while (wins < 5 && losses < 5) { //checks if either player has over 5 points
         //send a message prompting the user for a move and store it in a variable
         let playerSelection = prompt("Enter a move: ");
 
@@ -79,92 +64,18 @@ function game() {
             case 0:
                 console.log(`YOU LOSE! ${computerSelection} beats ${playerSelection}`);
                 losses++;
-                switch (rounds) {
-                    case 0:
-                        roundOne += `Loss - ${playerSelection} vs ${computerSelection}`;
-                        break;
-                    case 1:
-                        roundTwo += `Loss - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n`);
-                        break;
-                    case 2:
-                        roundThree += `Loss - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n`);
-                        break;
-                    case 3:
-                        roundFour += `Loss - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n${roundThree}\n`);
-                        break;
-                    case 4:
-                        roundFive += `Loss - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n${roundThree}\n${roundFour}\n`);
-                        break;
-                }
                 break;
             case 1:
-                console.log(`IT'S A TIE! ${computerSelection} ties ${playerSelection}!`);
-                ties++;
-                switch (rounds) {
-                    case 0:
-                        roundOne += `Tie - ${playerSelection} vs ${computerSelection}`;
-                        break;
-                    case 1:
-                        roundTwo += `Tie - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n`);
-                        break;
-                    case 2:
-                        roundThree += `Tie - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n`);
-                        break;
-                    case 3:
-                        roundFour += `Tie - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n${roundThree}\n`);
-                        break;
-                    case 4:
-                        roundFive += `Tie - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n${roundThree}\n${roundFour}\n`);
-                        break;
-                }
+                console.log(`IT WAS A TIE. RE-ENTER MOVE`);
                 break;
             case 2: 
                 console.log(`YOU WIN! ${playerSelection} beats ${computerSelection}`);
                 wins++;
-                switch (rounds) {
-                    case 0:
-                        roundOne += `Win - ${playerSelection} vs ${computerSelection}`;
-                        break;
-                    case 1:
-                        roundTwo += `Win - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n`);
-                        break;
-                    case 2:
-                        roundThree += `Win - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n`);
-                        break;
-                    case 3:
-                        roundFour += `Win - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n${roundThree}\n`);
-                        break;
-                    case 4:
-                        roundFive += `Win - ${playerSelection} vs ${computerSelection}`;
-                        console.log(`Stats:\n${roundOne}\n${roundTwo}\n${roundThree}\n${roundFour}\n`);
-                        break;
-                }
-                break;
-            case 3:
-                console.log("You have not entered a valid move");
-                rounds--;
                 break;
         }
         //print out the total wins/losses/ties
-        console.log(`Total Wins: ${wins}\nTotal Losses: ${losses}\nTotal Ties: ${ties}\n`);
+        console.log(`Your points: ${wins}\n The computer's points: ${losses}`);
     }
-    //print out the winner based on if you have more wins or losses - if equal it's a tie
-    if (wins > losses) {
-        console.log("You win the game!");
-    } else if (losses > wins) {
-        console.log("You lose the game!");
-    } else {
-        console.log("You tie with the computer!");
-    }
+    //print out the winner based on if you have more wins or losses
+    wins > losses ? console.log("You win!") : console.log("You lose.");
 }
