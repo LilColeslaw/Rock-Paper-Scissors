@@ -1,0 +1,31 @@
+body {
+    margin: 0px;
+}
+
+.container {
+    display: flex;
+}
+
+.Rock,
+.Paper,
+.Scissors {
+    flex: 1 1 auto;
+    height: 250px;
+    border-radius: 0%;
+    border-width: 0px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+.Rock {
+    background-image: url("./rock.png");
+}
+
+.Paper {
+    background-image: url("./paper.png");
+}
+
+.Scissors {
+    background-image: url("./scissors.png");
+}
