@@ -1,5 +1,7 @@
 let wins = 0;
 let losses = 0;
+let computerSelection;
+let playerSelection;
 
 const resultArea = document.querySelector(".result");
 
@@ -16,6 +18,23 @@ scissors.addEventListener("click", playRound);
 const score = document.querySelector(".score");
 score.textContent = `Current score: ${wins} vs ${losses}`;
 
+const changeContent = (element, num) => {
+    switch (num) {
+        case 0:
+            element.textContent = `YOU LOSE! ${playerSelection} loses to ${computerSelection}`;
+            break;
+        case 1:
+            element.textContent = `YOU WIN! ${playerSelection} beats ${computerSelection}`;
+            break;
+        case 2:
+            element.textContent = "IT WAS A TIE. RE-ENTER A MOVE";
+            break;
+        default:
+            element.textContent = `Current score: ${wins} vs ${losses}`;
+            break;
+    }
+};
+
 function computerPlay() {
     //create an array which holds the strings "Rock", "Paper", and "Scissors"
     const options = ["Rock", "Paper", "Scissors"];
@@ -25,43 +44,43 @@ function computerPlay() {
 }
 
 function playRound(event) {
-    let computerSelection = computerPlay();
-    let playerSelection = event.target.getAttribute("class");
+    computerSelection = computerPlay();
+    playerSelection = event.target.getAttribute("class");
     if (wins < 4 && losses < 4) {
         //check if they equal each-other return a tie if they do
         if (computerSelection === playerSelection) {
-            resultArea.textContent = "IT WAS A TIE. RE-ENTER A MOVE";
+            changeContent(resultArea, 2);
             return;
         }
         //check the cases for the computer having Rock
         if (computerSelection === "Rock") {
             if (playerSelection === "Scissors") {
-                resultArea.textContent = `YOU LOSE! ${computerSelection} beats ${playerSelection}`;
+                changeContent(resultArea, 0);
                 losses++;
             } else if (playerSelection === "Paper") {
-                resultArea.textContent = `YOU WIN! ${playerSelection} beats ${computerSelection}`;
+                changeContent(resultArea, 1);
                 wins++;
             }
         } else if (computerSelection === "Paper") {
             if (playerSelection === "Rock") {
-                resultArea.textContent = `YOU LOSE! ${computerSelection} beats ${playerSelection}`;
+                changeContent(resultArea, 0);
                 losses++;
             } else if (playerSelection === "Scissors") {
-                resultArea.textContent = `YOU WIN! ${playerSelection} beats ${computerSelection}`;
+                changeContent(resultArea, 1);
                 wins++;
             }
         } else if (playerSelection === "Paper") {
-            resultArea.textContent = `YOU LOSE! ${computerSelection} beats ${playerSelection}`;
+            changeContent(resultArea, 0);
             losses++;
         } else if (playerSelection === "Rock") {
-            resultArea.textContent = `YOU WIN! ${playerSelection} beats ${computerSelection}`;
+            changeContent(resultArea, 1);
             wins++;
         }
-        score.textContent = `Current score: ${wins} vs ${losses}`;
+        changeContent(score, 3);
     } else if (wins === 4 || losses === 4) {
         //check if they equal each-other return a tie if they do
         if (computerSelection === playerSelection) {
-            resultArea.textContent = "IT WAS A TIE. RE-ENTER A MOVE";
+            changeContent(resultArea, 2);
             return;
         }
         //check the cases for the computer having Rock
@@ -84,7 +103,7 @@ function playRound(event) {
         } else if (playerSelection === "Rock") {
             wins++;
         }
-        score.textContent = `Current score: ${wins} vs ${losses}`;
+        changeContent(score, 3);
         if (wins === 5 || losses === 5) {
             let result;
             wins === 5 ? result = "WIN" : result = "LOSE";
