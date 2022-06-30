@@ -5,12 +5,21 @@ let playerSelection;
 
 const resultArea = document.querySelector(".result");
 
+const body = document.querySelector("body");
 
 const rock = document.querySelector(".Rock");
 
 const paper = document.querySelector(".Paper");
 
 const scissors = document.querySelector(".Scissors");
+
+const resetButton = document.createElement("button"); //creates a reset button but doesn't append it yet
+resetButton.textContent = "Reset";
+resetButton.addEventListener("click", resetGame);
+
+const score = document.querySelector(".score");
+score.textContent = `Current score: ${wins} vs ${losses}`;
+
 let movesArray = [rock, paper, scissors];
 movesArray.forEach((move) => {
     move.addEventListener("click", playRound);
@@ -18,8 +27,7 @@ movesArray.forEach((move) => {
     move.addEventListener("mouseleave", mouseLeft);
 });
 
-const score = document.querySelector(".score");
-score.textContent = `Current score: ${wins} vs ${losses}`;
+
 
 function mousedOver(event) {event.target.style.backgroundColor = "#65c5df";}
 function mouseLeft(event) {event.target.style.backgroundColor = "white";}
@@ -37,6 +45,15 @@ function changeContent (element, num) {
         default:
             element.textContent = `Current score: ${wins} vs ${losses}`;
     }
+}
+
+function resetGame() {
+    wins = 0;
+    losses = 0;
+    changeContent(score, 3); //resets score area
+    resultArea.textContent = ""; //resets result area
+    body.removeChild(resetButton); //removes the reset button after doing this stuff (the variable is still there though
+    // and can be appended again later)
 }
 
 function computerPlay() {
@@ -118,6 +135,8 @@ function playRound(event) {
             let result;
             wins === 5 ? result = "WIN" : result = "LOSE";
             resultArea.textContent = `YOU ${result} THE GAME, WITH ${wins} POINTS`;
+            //now append the reset button
+            body.appendChild(resetButton);
             return;
         }
     }
